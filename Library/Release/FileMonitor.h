@@ -73,6 +73,9 @@ typedef void (^FileCallbackBlock)(File* _Nonnull);
 //process
 @property(nonatomic, retain)Process* _Nullable process;
 
+//modified
+@property(nonatomic, assign)BOOL modified;
+
 /* METHODS */
 
 //init
