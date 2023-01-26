@@ -26,6 +26,7 @@ extern NSCache* processCache;
 @synthesize timestamp;
 @synthesize sourcePath;
 @synthesize destinationPath;
+@synthesize modified;
 
 //init
 -(id)init:(es_message_t*)message csOption:(NSUInteger)csOption
@@ -42,6 +43,9 @@ extern NSCache* processCache;
         
         //set timestamp
         self.timestamp = [NSDate date];
+        
+        //set modified
+        self.modified = NO;
         
         //sync for process creation
         @synchronized (processCache) {

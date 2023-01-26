@@ -34,12 +34,16 @@ NSCache* processCache = NULL;
 // so save, to report with all other file i/o events
 @property(atomic, retain)NSMutableDictionary* arguments;
 
+@property(atomic, retain)NSMutableArray* fileWrites;
+
 @end
 
 @implementation FileMonitor
 
 //args
 @synthesize arguments;
+
+@synthesize fileWrites;
 
 //init
 -(id)init
@@ -50,6 +54,8 @@ NSCache* processCache = NULL;
     {
         //alloc agrugments dictionary
         arguments = [NSMutableDictionary dictionary];
+        
+        fileWrites = [NSMutableArray array];
         
         //get function pointer
         getRPID = dlsym(RTLD_NEXT, "responsibility_get_pid_responsible_for_pid");
@@ -99,6 +105,21 @@ NSCache* processCache = NULL;
                 [self processArgs:message file:file];
                 
                 return;
+            }
+            else if (ES_EVENT_TYPE_NOTIFY_WRITE == message->event_type)
+            {
+                if (![self->fileWrites containsObject:file.destinationPath])
+                {
+                    [self->fileWrites addObject:file.destinationPath];
+                }
+            }
+            else if (ES_EVENT_TYPE_NOTIFY_CLOSE == message->event_type)
+            {
+                if ([self->fileWrites containsObject:file.destinationPath])
+                {
+                    file.modified = YES;
+                    [self->fileWrites removeObject:file.destinationPath];
+                }
             }
                 
             //add args
