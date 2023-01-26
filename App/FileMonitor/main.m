@@ -8,6 +8,7 @@
 
 #import "main.h"
 #import "FileMonitor.h"
+#import "FileMonitor-Swift.h"
 
 int main(int argc, const char * argv[]) {
     
@@ -93,6 +94,14 @@ void usage()
     printf(" -pretty          JSON output is 'pretty-printed'\n");
     printf(" -skipApple       ignore Apple (platform) processes \n");
     printf(" -filter <name>   show events matching file or process name\n\n");
+    //usage added for database connections
+    printf(" -noPrint         this mode disables terminal output and instead requires\n");
+    printf("                  a connection string (-mongo) and job identifier (-jobid)\n");
+    printf("                  a connection string (-mongo) and job identifier (-jobid)\n");
+    printf(" -mongo <connection string>\n");
+    printf("    mongo database connection string \"mongodb://192.168.1.2:27017\"\n\n");
+    printf(" -jobid <job identifier>\n");
+    printf("    this will be used to create a collection name within the run_logs database\n\n");
     
     return;
 }
@@ -111,6 +120,9 @@ BOOL processArgs(NSArray* arguments)
     
     //init 'prettyPrint' flag
     prettyPrint = [arguments containsObject:@"-pretty"];
+    
+    //init 'noPrint' flag, if YES then we will use mongo database connection
+    noPrint = [arguments containsObject:@"-noPrint"];
     
     //extract value for 'filterBy'
     index = [arguments indexOfObject:@"-filter"];
@@ -133,6 +145,50 @@ BOOL processArgs(NSArray* arguments)
         //grab filter name
         filterBy = [arguments objectAtIndex:index];
     }
+    
+    //extract value for 'mongo'
+    index = [arguments indexOfObject:@"-mongo"];
+    if(NSNotFound != index)
+    {
+        //inc
+        index++;
+        
+        //sanity check
+        // make sure name comes after
+        if(index >= arguments.count)
+        {
+            //invalid
+            validArgs = NO;
+            
+            //bail
+            goto bail;
+        }
+        
+        //grab filter name
+        connectionString = [arguments objectAtIndex:index];
+    }
+    
+    //extract value for 'jobid'
+    index = [arguments indexOfObject:@"-jobid"];
+    if(NSNotFound != index)
+    {
+        //inc
+        index++;
+        
+        //sanity check
+        // make sure name comes after
+        if(index >= arguments.count)
+        {
+            //invalid
+            validArgs = NO;
+            
+            //bail
+            goto bail;
+        }
+        
+        //grab filter name
+        jobIdentifier = [arguments objectAtIndex:index];
+    }
 
 bail:
     
@@ -146,6 +202,9 @@ BOOL monitor()
     // note: also pass in process exec/exit to capture args
     es_event_type_t events[] = {ES_EVENT_TYPE_NOTIFY_CREATE, ES_EVENT_TYPE_NOTIFY_OPEN, ES_EVENT_TYPE_NOTIFY_WRITE, ES_EVENT_TYPE_NOTIFY_CLOSE, ES_EVENT_TYPE_NOTIFY_RENAME, ES_EVENT_TYPE_NOTIFY_LINK, ES_EVENT_TYPE_NOTIFY_UNLINK, ES_EVENT_TYPE_NOTIFY_EXEC, ES_EVENT_TYPE_NOTIFY_EXIT};
 
+    //init database
+    MongoConnection* mongo = [[MongoConnection alloc] initWithInitWithConnectionString:connectionString jobIdentifier:jobIdentifier];
+    
     //init monitor
     FileMonitor* fileMon = [[FileMonitor alloc] init];
     
@@ -179,17 +238,31 @@ BOOL monitor()
             }
         }
             
-        //pretty print?
-        if(YES == prettyPrint)
+        if(YES != noPrint)
         {
-            //make me pretty!
-            printf("%s\n", prettifyJSON(file.description).UTF8String);
+            //pretty print?
+            if(YES == prettyPrint)
+            {
+                //make me pretty!
+                printf("%s\n", prettifyJSON(file.description).UTF8String);
+            }
+            else
+            {
+                //output
+                printf("%s\n", file.description.UTF8String);
+            }
+        } else {
+            if (ES_EVENT_TYPE_NOTIFY_CLOSE == file.event && file.modified)
+            {
+                bson_value_t fileIdentifier = [mongo insertFileWithPath:[NSURL URLWithString:file.destinationPath]];
+                [mongo insertEventWithFileIdentifier:fileIdentifier eventDescription:file.description];
+            }
+            else
+            {
+                [mongo insertEvent:file.description];
+            }
         }
-        else
-        {
-            //output
-            printf("%s\n", file.description.UTF8String);
-        }
+        
     };
         
     //start monitoring

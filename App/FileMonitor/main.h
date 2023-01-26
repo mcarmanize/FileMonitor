@@ -22,6 +22,12 @@ NSString* filterBy = nil;
 //'prettyPrint' flag
 BOOL prettyPrint = NO;
 
+BOOL noPrint = NO;
+
+NSString* connectionString;
+
+NSString* jobIdentifier;
+
 /* FUNCTIONS */
 
 //process user-specifed args
