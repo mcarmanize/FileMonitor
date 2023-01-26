@@ -1,5 +1,7 @@
-# FileMonitor
+# FileMonitor - modified for esfriend
 A macOS File Monitor (based on Apple's new Endpoint Security Framework)
+
+This version of FileMonitor includes command line options to disable output to the terminal and allow connection to a mongodb to save all events and upload files that are changed
 
 <p align="center"><img src="https://objective-see.com/images/blog/blog_0x48/twitter.png"></p>
 
