@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,10 @@
 		CDBF5B852374D63F00B78F3D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBF5B7D2374D63F00B78F3D /* main.m */; };
 		CDBF5B882374D63F00B78F3D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBF5B812374D63F00B78F3D /* AppDelegate.m */; };
 		CDBF5B892374D63F00B78F3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDBF5B832374D63F00B78F3D /* Assets.xcassets */; };
+		E67F1F0B2973644F00E14D1C /* MongoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E67F1F0A2973644F00E14D1C /* MongoSwift */; };
+		E67F1F0E2973646600E14D1C /* MongoConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F1F0D2973646600E14D1C /* MongoConnection.swift */; };
+		E6E1E23F2981A9080007E518 /* Proc in Frameworks */ = {isa = PBXBuildFile; productRef = E6E1E23E2981A9080007E518 /* Proc */; };
+		E6E1E2412981A9080007E518 /* ProcUtils in Frameworks */ = {isa = PBXBuildFile; productRef = E6E1E2402981A9080007E518 /* ProcUtils */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,8 @@
 		CDBF5B822374D63F00B78F3D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CDBF5B832374D63F00B78F3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CDC8436B2378BDA200BB78D3 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		E67F1F0C2973646500E14D1C /* FileMonitor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileMonitor-Bridging-Header.h"; sourceTree = "<group>"; };
+		E67F1F0D2973646600E14D1C /* MongoConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongoConnection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,9 +43,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6E1E2412981A9080007E518 /* ProcUtils in Frameworks */,
 				CD38A85D2358B632004EBB67 /* libbsm.tbd in Frameworks */,
 				CDB724412374DB72003A3364 /* libFileMonitor.a in Frameworks */,
 				CD38A85B2358B5FC004EBB67 /* libEndpointSecurity.tbd in Frameworks */,
+				E67F1F0B2973644F00E14D1C /* MongoSwift in Frameworks */,
+				E6E1E23F2981A9080007E518 /* Proc in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +94,8 @@
 				CDC8436B2378BDA200BB78D3 /* main.h */,
 				CDBF5B7D2374D63F00B78F3D /* main.m */,
 				CDBF5B7C2374D63F00B78F3D /* MainMenu.xib */,
+				E67F1F0D2973646600E14D1C /* MongoConnection.swift */,
+				E67F1F0C2973646500E14D1C /* FileMonitor-Bridging-Header.h */,
 			);
 			path = FileMonitor;
 			sourceTree = "<group>";
@@ -105,6 +116,11 @@
 			dependencies = (
 			);
 			name = FileMonitor;
+			packageProductDependencies = (
+				E67F1F0A2973644F00E14D1C /* MongoSwift */,
+				E6E1E23E2981A9080007E518 /* Proc */,
+				E6E1E2402981A9080007E518 /* ProcUtils */,
+			);
 			productName = ProcessMonitor;
 			productReference = CD38A83D2358B411004EBB67 /* FileMonitor.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +136,7 @@
 				TargetAttributes = {
 					CD38A83C2358B410004EBB67 = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
@@ -132,6 +149,10 @@
 				Base,
 			);
 			mainGroup = CD38A8342358B410004EBB67;
+			packageReferences = (
+				E67F1F092973644F00E14D1C /* XCRemoteSwiftPackageReference "mongo-swift-driver" */,
+				E6E1E23D2981A9080007E518 /* XCRemoteSwiftPackageReference "libproc-swift" */,
+			);
 			productRefGroup = CD38A83E2358B411004EBB67 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -159,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDBF5B882374D63F00B78F3D /* AppDelegate.m in Sources */,
+				E67F1F0E2973646600E14D1C /* MongoConnection.swift in Sources */,
 				CDBF5B852374D63F00B78F3D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,12 +303,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FileMonitor/FileMonitor.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.3.0;
-				DEVELOPMENT_TEAM = VBG97UB4TA;
+				DEVELOPMENT_TEAM = 2J73V563P6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = ../Library/Release;
 				INFOPLIST_FILE = FileMonitor/Info.plist;
@@ -297,9 +320,12 @@
 				LIBRARY_SEARCH_PATHS = ../Library/Release;
 				MARKETING_VERSION = 1.3.0;
 				OTHER_CODE_SIGN_FLAGS = "--timestamp";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.objective-see.filemonitor";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mcarmanize.filemonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "File Monitor";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "FileMonitor/FileMonitor-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -307,12 +333,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FileMonitor/FileMonitor.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.3.0;
-				DEVELOPMENT_TEAM = VBG97UB4TA;
+				DEVELOPMENT_TEAM = 2J73V563P6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = ../Library/Release;
 				INFOPLIST_FILE = FileMonitor/Info.plist;
@@ -323,9 +350,11 @@
 				LIBRARY_SEARCH_PATHS = ../Library/Release;
 				MARKETING_VERSION = 1.3.0;
 				OTHER_CODE_SIGN_FLAGS = "--timestamp";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.objective-see.filemonitor";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mcarmanize.filemonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "File Monitor";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "FileMonitor/FileMonitor-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -351,6 +380,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E67F1F092973644F00E14D1C /* XCRemoteSwiftPackageReference "mongo-swift-driver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mongodb/mongo-swift-driver";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		E6E1E23D2981A9080007E518 /* XCRemoteSwiftPackageReference "libproc-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/x13a/libproc-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E67F1F0A2973644F00E14D1C /* MongoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E67F1F092973644F00E14D1C /* XCRemoteSwiftPackageReference "mongo-swift-driver" */;
+			productName = MongoSwift;
+		};
+		E6E1E23E2981A9080007E518 /* Proc */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6E1E23D2981A9080007E518 /* XCRemoteSwiftPackageReference "libproc-swift" */;
+			productName = Proc;
+		};
+		E6E1E2402981A9080007E518 /* ProcUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6E1E23D2981A9080007E518 /* XCRemoteSwiftPackageReference "libproc-swift" */;
+			productName = ProcUtils;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CD38A8352358B410004EBB67 /* Project object */;
 }

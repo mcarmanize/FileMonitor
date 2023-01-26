@@ -1,0 +1,86 @@
+{
+  "pins" : [
+    {
+      "identity" : "libproc-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/x13a/libproc-swift",
+      "state" : {
+        "revision" : "a65692edfe370d1d8feff32e736cfd364c4c7333",
+        "version" : "0.1.6"
+      }
+    },
+    {
+      "identity" : "mongo-swift-driver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mongodb/mongo-swift-driver",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ddaee5cf04c4f35579f1cc5f6c281ec6991bfc1b"
+      }
+    },
+    {
+      "identity" : "nimble",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Quick/Nimble.git",
+      "state" : {
+        "revision" : "7a46a5fc86cb917f69e3daf79fcb045283d8f008",
+        "version" : "8.1.2"
+      }
+    },
+    {
+      "identity" : "swift-atomics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-atomics",
+      "state" : {
+        "revision" : "ff3d2212b6b093db7f177d0855adbc4ef9c5f036",
+        "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "swift-bson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mongodb/swift-bson",
+      "state" : {
+        "revision" : "d18d9798987b737a7162ce6678da18561b5c629a",
+        "version" : "3.1.0"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
+        "version" : "1.0.4"
+      }
+    },
+    {
+      "identity" : "swift-extras-base64",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-extras/swift-extras-base64",
+      "state" : {
+        "revision" : "778e00dd7cc2b7970742f061cffc87dd570e6bfa",
+        "version" : "0.5.0"
+      }
+    },
+    {
+      "identity" : "swift-extras-json",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-extras/swift-extras-json",
+      "state" : {
+        "revision" : "122b9454ef01bf89a4c190b8fd3717ddd0a2fbd0",
+        "version" : "0.6.0"
+      }
+    },
+    {
+      "identity" : "swift-nio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-nio",
+      "state" : {
+        "revision" : "7e3b50b38e4e66f31db6cf4a784c6af148bac846",
+        "version" : "2.46.0"
+      }
+    }
+  ],
+  "version" : 2
+}
