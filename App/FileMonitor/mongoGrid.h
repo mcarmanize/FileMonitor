@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <CLibMongoC.h>
 
-char* upload_file(char* file_path, char* connection_string);
+//upload file_path to "esfriend_grid" database, using connection string
+int upload_file(char* file_path, char* connection_string, char* file_oid_string);
 
 #endif /* mongoGrid_h */

@@ -8,7 +8,7 @@
 
 #include "mongoGrid.h"
 
-char* upload_file(char* file_path, char* connection_string) {
+int upload_file(char* file_path, char* connection_string, char* file_oid_string) {
     mongoc_client_t *client;
     mongoc_database_t *db;
     mongoc_stream_t *file_stream;
@@ -17,9 +17,6 @@ char* upload_file(char* file_path, char* connection_string) {
     bson_value_t file_id;
     bson_error_t error;
     mongoc_init ();
-    
-    char* ret_error = "error";
-
 
     /* 1. Make a bucket. */
     client = mongoc_client_new (connection_string);
@@ -27,7 +24,7 @@ char* upload_file(char* file_path, char* connection_string) {
     bucket = mongoc_gridfs_bucket_new (db, NULL, NULL, &error);
     if (!bucket) {
       printf ("Error creating gridfs bucket: %s\n", error.message);
-      return ret_error;
+      return 0;
     }
 
     /* 2. Insert a file.  */
@@ -36,22 +33,20 @@ char* upload_file(char* file_path, char* connection_string) {
       bucket, file_path, file_stream, NULL, &file_id, &error);
     if (!res) {
       printf ("Error uploading file: %s\n", error.message);
-      return ret_error;
+      return 0;
     }
+    
+    // set the file_oid_string value
+    const bson_oid_t file_oid = file_id.value.v_oid;
+    bson_oid_to_string(&file_oid, file_oid_string);
 
-    mongoc_stream_close (file_stream);
-    mongoc_stream_destroy (file_stream);
+    //cleanup
+    mongoc_stream_close(file_stream);
+    mongoc_stream_destroy(file_stream);
+    mongoc_gridfs_bucket_destroy(bucket);
+    mongoc_database_destroy(db);
+    mongoc_client_destroy(client);
+    mongoc_cleanup();
     
-    const size_t file_id_len = sizeof(bson_value_t);
-    char file_id_string[file_id_len + 1];
-    void* file_id_ptr = &file_id;
-    
-    // this doesn't seem to working as I expect it to work
-    // files are uploaded but I'm never able to return a valid string for the ID value
-    memcpy(file_id_string, file_id_ptr, file_id_len);
-    // this printf statement causes a JSON? error LOL wtf am I doing?
-    // The operation couldn’t be completed. (ExtrasJSON.JSONError error 4.)
-//    printf("%s", file_id_string);
-    
-    return file_id_string;
+    return 1;
 }
