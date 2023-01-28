@@ -6,6 +6,10 @@
 //  Copyright © 2020 Objective-See. All rights reserved.
 //
 
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include <libproc.h>
 #import "utilities.h"
 
 //convert es_string_token_t to string
@@ -29,4 +33,22 @@ NSString* convertStringToken(es_string_token_t* stringToken)
 bail:
     
     return string;
+}
+
+
+char* pid_path(pid_t pid)
+{
+    int ret;
+    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+
+    ret = proc_pidpath (pid, pathbuf, sizeof(pathbuf));
+    if ( ret <= 0 ) {
+        fprintf(stderr, "PID %d: proc_pidpath ();\n", pid);
+        fprintf(stderr, "    %s\n", strerror(errno));
+        return 0;
+    } else {
+        printf("proc %d: %s\n", pid, pathbuf);
+    }
+
+    return pathbuf;
 }

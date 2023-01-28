@@ -35,6 +35,8 @@ pid_t getParentID(pid_t child);
 @synthesize pid;
 @synthesize exit;
 @synthesize path;
+@synthesize pcommand;
+@synthesize rcommand;
 @synthesize ppid;
 @synthesize event;
 @synthesize ancestors;
@@ -141,8 +143,33 @@ pid_t getParentID(pid_t child);
         //init ppid
         self.ppid = process->ppid;
         
+        // get parent command path
+        char* pcommand = pid_path(self.ppid);
+        if (!pcommand)
+        {
+            self.pcommand = @"";
+        }
+        else
+        {
+            self.pcommand = [NSString stringWithUTF8String:pcommand];
+        }
+
         //init rpid
-        if(message->version >= 4) self.rpid = audit_token_to_pid(process->responsible_audit_token);
+        if(message->version >= 4)
+        {
+            self.rpid = audit_token_to_pid(process->responsible_audit_token);
+            
+            // get responsible command path
+            char* rcommand = pid_path(self.rpid);
+            if (!rcommand)
+            {
+                self.rcommand = @"";
+            }
+            else
+            {
+                self.rcommand = [NSString stringWithUTF8String:rcommand];
+            }
+        }
         
         //init uuid
         self.uid = audit_token_to_euid(process->audit_token);
@@ -537,8 +564,14 @@ bail:
     //add ppid
     [description appendFormat: @"\"ppid\":%d,", self.ppid];
     
+    //add ppid
+    [description appendFormat: @"\"pcommand\":\"%@\",", self.pcommand];
+    
     //add rpdi
     [description appendFormat: @"\"rpid\":%d,", self.rpid];
+    
+    //add ppid
+    [description appendFormat: @"\"rcommand\":\"%@\",", self.rcommand];
 
     //add ancestors
     [description appendFormat:@"\"ancestors\":["];
