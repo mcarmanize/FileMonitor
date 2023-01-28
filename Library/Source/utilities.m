@@ -41,14 +41,17 @@ char* pid_path(pid_t pid)
     int ret;
     char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
 
-    ret = proc_pidpath (pid, pathbuf, sizeof(pathbuf));
-    if ( ret <= 0 ) {
-        fprintf(stderr, "PID %d: proc_pidpath ();\n", pid);
-        fprintf(stderr, "    %s\n", strerror(errno));
+    ret = proc_pidpath(pid, pathbuf, sizeof(pathbuf));
+    if ( ret <= 0 )
+    {
+//        fprintf(stderr, "PID %d: proc_pidpath ();\n", pid);
+//        fprintf(stderr, "    %s\n", strerror(errno));
         return 0;
-    } else {
-        printf("proc %d: %s\n", pid, pathbuf);
     }
+//    else
+//    {
+//        printf("proc %d: %s\n", pid, pathbuf);
+//    }
 
     return pathbuf;
 }
