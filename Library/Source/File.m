@@ -239,6 +239,7 @@ bail:
         //close
         case ES_EVENT_TYPE_NOTIFY_CLOSE:
             [description appendString:@"\"ES_EVENT_TYPE_NOTIFY_CLOSE\","];
+            [description appendFormat:@"\"modified\":\"%hhd\",", self.modified];
             break;
             
         //rename
