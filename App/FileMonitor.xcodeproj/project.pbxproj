@@ -92,15 +92,15 @@
 				CDBF5B822374D63F00B78F3D /* AppDelegate.h */,
 				CDBF5B812374D63F00B78F3D /* AppDelegate.m */,
 				CDBF5B832374D63F00B78F3D /* Assets.xcassets */,
+				E67F1F0C2973646500E14D1C /* FileMonitor-Bridging-Header.h */,
 				CDBF5B802374D63F00B78F3D /* FileMonitor.entitlements */,
 				CDBF5B7F2374D63F00B78F3D /* Info.plist */,
+				CDBF5B7C2374D63F00B78F3D /* MainMenu.xib */,
 				CDC8436B2378BDA200BB78D3 /* main.h */,
 				CDBF5B7D2374D63F00B78F3D /* main.m */,
-				CDBF5B7C2374D63F00B78F3D /* MainMenu.xib */,
 				E67F1F0D2973646600E14D1C /* MongoConnection.swift */,
-				E67F1F0C2973646500E14D1C /* FileMonitor-Bridging-Header.h */,
-				E6DA8F8329849A9E000772A7 /* mongoGrid.h */,
 				E6DA8F8429849A9E000772A7 /* mongoGrid.c */,
+				E6DA8F8329849A9E000772A7 /* mongoGrid.h */,
 			);
 			path = FileMonitor;
 			sourceTree = "<group>";
