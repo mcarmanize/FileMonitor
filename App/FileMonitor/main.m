@@ -252,28 +252,41 @@ BOOL monitor()
                 printf("%s\n", file.description.UTF8String);
             }
         } else {
+            // if close event shows the file was modified we want to upload the file
             if (ES_EVENT_TYPE_NOTIFY_CLOSE == file.event && file.modified)
             {
+                //avoid empty files and tty modifications
                 unsigned long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:file.destinationPath error:nil] fileSize];
                 if (0 < fileSize)
                 {
                     const char* filePathCString = file.destinationPath.UTF8String;
                     const char* connCString = connectionString.UTF8String;
-                    char* fileIdentifier = upload_file((char*)filePathCString, (char*)connCString);
-                    [mongo insertEventWithFileIdentifier:[NSString stringWithUTF8String:fileIdentifier] eventDescription:file.description];
+                    //initialize object id string
+                    char* file_oid_string[(sizeof(bson_oid_t)*2)+1];
+                    //upload file
+                    int result = upload_file((char*)filePathCString, (char*)connCString, (char*)file_oid_string);
+                    if (0 < result)
+                    {
+                        [mongo insertEventWithFileIdentifier:[NSString stringWithUTF8String:(const char* _Nonnull)file_oid_string] eventDescription:file.description];
+                    }
+                    else
+                    {
+                        // just insert the event as it is
+                        [mongo insertEvent:file.description];
+                    }
                 }
                 else
                 {
+                    // just insert the event as it is
                     [mongo insertEvent:file.description];
                 }
-                
             }
             else
             {
+                // just insert the event as it is
                 [mongo insertEvent:file.description];
             }
         }
-        
     };
         
     //start monitoring
