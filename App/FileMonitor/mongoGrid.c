@@ -13,13 +13,9 @@ char* upload_file(char* file_path, char* connection_string) {
     mongoc_database_t *db;
     mongoc_stream_t *file_stream;
     mongoc_gridfs_bucket_t *bucket;
-    mongoc_cursor_t *cursor;
-    bson_t filter;
     bool res;
     bson_value_t file_id;
     bson_error_t error;
-    const bson_t *doc;
-    char *str;
     mongoc_init ();
     
     char* ret_error = "error";
