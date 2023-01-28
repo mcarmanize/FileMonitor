@@ -46,7 +46,12 @@ char* upload_file(char* file_path, char* connection_string) {
     char file_id_string[file_id_len + 1];
     void* file_id_ptr = &file_id;
     
+    // this doesn't seem to working as I expect it to work
+    // files are uploaded but I'm never able to return a valid string for the ID value
     memcpy(file_id_string, file_id_ptr, file_id_len);
+    // this printf statement causes a JSON? error LOL wtf am I doing?
+    // The operation couldn’t be completed. (ExtrasJSON.JSONError error 4.)
+//    printf("%s", file_id_string);
     
     return file_id_string;
 }
