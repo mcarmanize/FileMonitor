@@ -120,6 +120,12 @@ typedef void (^FileCallbackBlock)(File* _Nonnull);
 //path
 @property(nonatomic, retain)NSString* _Nullable path;
 
+//parent command
+@property(nonatomic, retain)NSString* _Nullable pcommand;
+
+//responsible command
+@property(nonatomic, retain)NSString* _Nullable rcommand;
+
 //args
 @property(nonatomic, retain)NSMutableArray* _Nonnull arguments;
 
