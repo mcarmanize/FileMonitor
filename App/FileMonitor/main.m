@@ -9,6 +9,7 @@
 #import "main.h"
 #import "FileMonitor.h"
 #import "FileMonitor-Swift.h"
+#import "mongoGrid.h"
 
 int main(int argc, const char * argv[]) {
     
@@ -254,8 +255,10 @@ BOOL monitor()
 //            [mongo insertEvent:file.description];
             if (ES_EVENT_TYPE_NOTIFY_CLOSE == file.event && file.modified)
             {
-                NSString *fileIdentifier = [mongo insertFileWithPath:[NSURL URLWithString:file.destinationPath]];
-                [mongo insertEventWithFileIdentifier:fileIdentifier eventDescription:file.description];
+                const char* filePathCString = file.destinationPath.UTF8String;
+                const char* connCString = connectionString.UTF8String;
+                char* fileIdentifier = upload_file((char*)filePathCString, (char*)connCString);
+                [mongo insertEventWithFileIdentifier:[NSString stringWithUTF8String:fileIdentifier] eventDescription:file.description];
             }
             else
             {
