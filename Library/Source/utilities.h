@@ -16,6 +16,6 @@
 NSString* convertStringToken(es_string_token_t* stringToken);
 
 //return pointer to char array with path
-int pid_path(pid_t pid, char* buffer);
+char* pid_path(pid_t pid);
 
 #endif /* utilities_h */

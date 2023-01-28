@@ -35,16 +35,15 @@ bail:
     return string;
 }
 
-
 //return pointer to char array with path
-int pid_path(pid_t pid, char* buffer)
+char* pid_path(pid_t pid)
 {
     int ret;
+    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
 
-    ret = proc_pidpath(pid, buffer, sizeof(buffer));
+    ret = proc_pidpath(pid, pathbuf, sizeof(pathbuf));
     if ( ret <= 0 )
     {
-        //print statements commented to reduce noise after testing
 //        fprintf(stderr, "PID %d: proc_pidpath ();\n", pid);
 //        fprintf(stderr, "    %s\n", strerror(errno));
         return 0;
@@ -53,5 +52,6 @@ int pid_path(pid_t pid, char* buffer)
 //    {
 //        printf("proc %d: %s\n", pid, pathbuf);
 //    }
-    return 1;
+
+    return pathbuf;
 }
