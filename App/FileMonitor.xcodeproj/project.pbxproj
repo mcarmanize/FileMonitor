@@ -16,6 +16,7 @@
 		CDBF5B892374D63F00B78F3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDBF5B832374D63F00B78F3D /* Assets.xcassets */; };
 		E67F1F0B2973644F00E14D1C /* MongoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E67F1F0A2973644F00E14D1C /* MongoSwift */; };
 		E67F1F0E2973646600E14D1C /* MongoConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F1F0D2973646600E14D1C /* MongoConnection.swift */; };
+		E6DA8F8529849A9E000772A7 /* mongoGrid.c in Sources */ = {isa = PBXBuildFile; fileRef = E6DA8F8429849A9E000772A7 /* mongoGrid.c */; };
 		E6E1E23F2981A9080007E518 /* Proc in Frameworks */ = {isa = PBXBuildFile; productRef = E6E1E23E2981A9080007E518 /* Proc */; };
 		E6E1E2412981A9080007E518 /* ProcUtils in Frameworks */ = {isa = PBXBuildFile; productRef = E6E1E2402981A9080007E518 /* ProcUtils */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,8 @@
 		CDC8436B2378BDA200BB78D3 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		E67F1F0C2973646500E14D1C /* FileMonitor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileMonitor-Bridging-Header.h"; sourceTree = "<group>"; };
 		E67F1F0D2973646600E14D1C /* MongoConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongoConnection.swift; sourceTree = "<group>"; };
+		E6DA8F8329849A9E000772A7 /* mongoGrid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mongoGrid.h; sourceTree = "<group>"; };
+		E6DA8F8429849A9E000772A7 /* mongoGrid.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mongoGrid.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,8 @@
 				CDBF5B7C2374D63F00B78F3D /* MainMenu.xib */,
 				E67F1F0D2973646600E14D1C /* MongoConnection.swift */,
 				E67F1F0C2973646500E14D1C /* FileMonitor-Bridging-Header.h */,
+				E6DA8F8329849A9E000772A7 /* mongoGrid.h */,
+				E6DA8F8429849A9E000772A7 /* mongoGrid.c */,
 			);
 			path = FileMonitor;
 			sourceTree = "<group>";
@@ -181,6 +186,7 @@
 			files = (
 				CDBF5B882374D63F00B78F3D /* AppDelegate.m in Sources */,
 				E67F1F0E2973646600E14D1C /* MongoConnection.swift in Sources */,
+				E6DA8F8529849A9E000772A7 /* mongoGrid.c in Sources */,
 				CDBF5B852374D63F00B78F3D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,11 +245,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "/usr/local/Cellar/mongo-c-driver/1.23.2/include/libmongoc-1.0";
 			};
 			name = Debug;
 		};
@@ -292,16 +300,19 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "/usr/local/Cellar/mongo-c-driver/1.23.2/include/libmongoc-1.0";
 			};
 			name = Release;
 		};
 		CD38A84F2358B412004EBB67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FileMonitor/FileMonitor.entitlements;
@@ -326,12 +337,14 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "FileMonitor/FileMonitor-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				USER_HEADER_SEARCH_PATHS = "/usr/local/include/**";
 			};
 			name = Debug;
 		};
 		CD38A8502358B412004EBB67 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FileMonitor/FileMonitor.entitlements;
@@ -355,6 +368,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FileMonitor/FileMonitor-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				USER_HEADER_SEARCH_PATHS = "/usr/local/include/**";
 			};
 			name = Release;
 		};
