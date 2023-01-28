@@ -39,7 +39,7 @@ bail:
 char* pid_path(pid_t pid)
 {
     int ret;
-    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+    static char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
 
     ret = proc_pidpath(pid, pathbuf, sizeof(pathbuf));
     if ( ret <= 0 )
@@ -54,4 +54,25 @@ char* pid_path(pid_t pid)
 //    }
 
     return pathbuf;
+}
+
+
+// this doesn't work for some reason
+int pid_path2(pid_t pid, char* buffer)
+{
+    int ret;
+
+    ret = proc_pidpath(pid, (void*)buffer, PROC_PIDPATHINFO_MAXSIZE);
+    if ( ret <= 0 )
+    {
+        fprintf(stderr, "PID %d: proc_pidpath ();\n", pid);
+        fprintf(stderr, "    %s\n", strerror(errno));
+        return 0;
+    }
+    else
+    {
+        printf("proc %d: %s\n", pid, buffer);
+    }
+
+    return 1;
 }

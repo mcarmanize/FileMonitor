@@ -143,7 +143,19 @@ pid_t getParentID(pid_t child);
         //init ppid
         self.ppid = process->ppid;
         
-        // get parent command path
+        // get parent command path - not working
+//        char ppathbuf[PROC_PIDPATHINFO_MAXSIZE];
+//        int presult = pid_path2(self.ppid, ppathbuf);
+//        if (0 < presult)
+//        {
+//            self.pcommand = @"";
+//        }
+//        else
+//        {
+//            self.pcommand = [NSString stringWithUTF8String:ppathbuf];
+//        }
+        
+        // get parent command path - working
         char* pcommand = pid_path(self.ppid);
         if (!pcommand)
         {
@@ -159,7 +171,19 @@ pid_t getParentID(pid_t child);
         {
             self.rpid = audit_token_to_pid(process->responsible_audit_token);
             
-            // get responsible command path
+            // get responsible command path - not working
+//            char rpathbuf[PROC_PIDPATHINFO_MAXSIZE];
+//            int rresult = pid_path2(self.ppid, rpathbuf);
+//            if (0 < rresult)
+//            {
+//                self.rcommand = @"";
+//            }
+//            else
+//            {
+//                self.rcommand = [NSString stringWithUTF8String:rpathbuf];
+//            }
+            
+            //get responsible command path - working
             char* rcommand = pid_path(self.rpid);
             if (!rcommand)
             {
