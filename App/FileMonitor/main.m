@@ -97,7 +97,6 @@ void usage()
     //usage added for database connections
     printf(" -noPrint         this mode disables terminal output and instead requires\n");
     printf("                  a connection string (-mongo) and job identifier (-jobid)\n");
-    printf("                  a connection string (-mongo) and job identifier (-jobid)\n");
     printf(" -mongo <connection string>\n");
     printf("    mongo database connection string \"mongodb://192.168.1.2:27017\"\n\n");
     printf(" -jobid <job identifier>\n");
@@ -252,9 +251,10 @@ BOOL monitor()
                 printf("%s\n", file.description.UTF8String);
             }
         } else {
+//            [mongo insertEvent:file.description];
             if (ES_EVENT_TYPE_NOTIFY_CLOSE == file.event && file.modified)
             {
-                bson_value_t fileIdentifier = [mongo insertFileWithPath:[NSURL URLWithString:file.destinationPath]];
+                NSString *fileIdentifier = [mongo insertFileWithPath:[NSURL URLWithString:file.destinationPath]];
                 [mongo insertEventWithFileIdentifier:fileIdentifier eventDescription:file.description];
             }
             else
