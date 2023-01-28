@@ -14,6 +14,8 @@
 
 //convert es_string_token_t to string
 NSString* convertStringToken(es_string_token_t* stringToken);
-char* pid_path(pid_t pid);
+
+//return pointer to char array with path
+int pid_path(pid_t pid, char* buffer);
 
 #endif /* utilities_h */

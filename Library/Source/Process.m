@@ -144,14 +144,15 @@ pid_t getParentID(pid_t child);
         self.ppid = process->ppid;
         
         // get parent command path
-        char* pcommand = pid_path(self.ppid);
-        if (!pcommand)
+        char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+        int result =  pid_path(self.ppid, pathbuf);
+        if (0 == result)
         {
             self.pcommand = @"";
         }
         else
         {
-            self.pcommand = [NSString stringWithUTF8String:pcommand];
+            self.pcommand = [NSString stringWithUTF8String:pathbuf];
         }
 
         //init rpid
@@ -160,14 +161,14 @@ pid_t getParentID(pid_t child);
             self.rpid = audit_token_to_pid(process->responsible_audit_token);
             
             // get responsible command path
-            char* rcommand = pid_path(self.rpid);
-            if (!rcommand)
+            result = pid_path(self.rpid, pathbuf);
+            if (0 == result)
             {
                 self.rcommand = @"";
             }
             else
             {
-                self.rcommand = [NSString stringWithUTF8String:rcommand];
+                self.rcommand = [NSString stringWithUTF8String:pathbuf];
             }
         }
         
