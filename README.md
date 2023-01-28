@@ -20,6 +20,8 @@ For more details read: ["Writing a File Monitor with Apple's Endpoint Security F
 **Mahalo!** \
 This product is supported by the following "Friends of Objective-See":
 <br>
+😍😍😍[Kandji](https://kandji.io)
+<br>
 🥇[CleanMyMac X](https://macpaw.com/cleanmymac) 
 <br>
 🥈[Malwarebytes](https://www.malwarebytes.com) / [Airo AV](https://www.airoav.com/)
