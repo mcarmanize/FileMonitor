@@ -3,6 +3,9 @@ A macOS File Monitor (based on Apple's new Endpoint Security Framework)
 
 This version of FileMonitor includes command line options to disable output to the terminal and allow connection to a mongodb to save all events and upload files that are changed
 
+Usage:
+`sudo /Applications/FileMonitor.app/Contents/MacOS/FileMonitor -noPrint -mongo mongodb://192.168.1.3:27017 -jobid 000000000000000000000003`
+
 <p align="center"><img src="https://objective-see.com/images/blog/blog_0x48/twitter.png"></p>
 
 **Read More:** \
