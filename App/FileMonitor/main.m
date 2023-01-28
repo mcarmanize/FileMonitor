@@ -252,13 +252,21 @@ BOOL monitor()
                 printf("%s\n", file.description.UTF8String);
             }
         } else {
-//            [mongo insertEvent:file.description];
             if (ES_EVENT_TYPE_NOTIFY_CLOSE == file.event && file.modified)
             {
-                const char* filePathCString = file.destinationPath.UTF8String;
-                const char* connCString = connectionString.UTF8String;
-                char* fileIdentifier = upload_file((char*)filePathCString, (char*)connCString);
-                [mongo insertEventWithFileIdentifier:[NSString stringWithUTF8String:fileIdentifier] eventDescription:file.description];
+                unsigned long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:file.destinationPath error:nil] fileSize];
+                if (0 < fileSize)
+                {
+                    const char* filePathCString = file.destinationPath.UTF8String;
+                    const char* connCString = connectionString.UTF8String;
+                    char* fileIdentifier = upload_file((char*)filePathCString, (char*)connCString);
+                    [mongo insertEventWithFileIdentifier:[NSString stringWithUTF8String:fileIdentifier] eventDescription:file.description];
+                }
+                else
+                {
+                    [mongo insertEvent:file.description];
+                }
+                
             }
             else
             {
