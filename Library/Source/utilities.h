@@ -19,6 +19,6 @@ NSString* convertStringToken(es_string_token_t* stringToken);
 char* pid_path(pid_t pid);
 
 //modify buffer from argument - not working
-int pid_path2(pid_t pid, char* buffer);
+int pid_path2(pid_t pid, char (*buffer)[]);
 
 #endif /* utilities_h */
