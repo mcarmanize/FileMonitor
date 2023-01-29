@@ -16,7 +16,6 @@ import NIOPosix
     let elg: MultiThreadedEventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 4)
     var connectionString: String
     var jobIdentifier: String
-    var jobIdentifierBSON: BSONObjectID
     var client: MongoClient
     var runLogs: MongoDatabase
     
@@ -24,7 +23,6 @@ import NIOPosix
         self.connectionString = connectionString
         self.jobIdentifier = jobIdentifier
         do {
-            try self.jobIdentifierBSON = BSONObjectID(self.jobIdentifier)
             self.client = try MongoClient(self.connectionString, using: elg)
             self.runLogs = self.client.db("run_logs")
         } catch {
