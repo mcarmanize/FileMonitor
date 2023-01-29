@@ -215,8 +215,8 @@ bail:
     //start JSON
     [description appendString:@"{"];
     
-    //add event
-    [description appendString:@"\"event\":"];
+    //add event_type_description - changed to match the format of eslogger where "event" is a dictionary
+    [description appendString:@"\"event_type_description\":"];
     
     //add event
     switch(self.event)

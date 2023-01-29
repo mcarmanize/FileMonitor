@@ -145,7 +145,7 @@ pid_t getParentID(pid_t child);
         
         // get parent command path - not working
 //        char ppathbuf[PROC_PIDPATHINFO_MAXSIZE];
-//        int presult = pid_path2(self.ppid, ppathbuf);
+//        int presult = pid_path2(self.ppid, &ppathbuf);
 //        if (0 < presult)
 //        {
 //            self.pcommand = @"";
@@ -173,7 +173,7 @@ pid_t getParentID(pid_t child);
             
             // get responsible command path - not working
 //            char rpathbuf[PROC_PIDPATHINFO_MAXSIZE];
-//            int rresult = pid_path2(self.ppid, rpathbuf);
+//            int rresult = pid_path2(self.ppid, &rpathbuf);
 //            if (0 < rresult)
 //            {
 //                self.rcommand = @"";

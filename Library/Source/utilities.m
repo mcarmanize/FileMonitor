@@ -58,21 +58,21 @@ char* pid_path(pid_t pid)
 
 
 // this doesn't work for some reason
-int pid_path2(pid_t pid, char* buffer)
+int pid_path2(pid_t pid, char (*buffer)[])
 {
     int ret;
 
-    ret = proc_pidpath(pid, (void*)buffer, PROC_PIDPATHINFO_MAXSIZE);
+    ret = proc_pidpath(pid, buffer, PROC_PIDPATHINFO_MAXSIZE);
     if ( ret <= 0 )
     {
         fprintf(stderr, "PID %d: proc_pidpath ();\n", pid);
         fprintf(stderr, "    %s\n", strerror(errno));
         return 0;
     }
-    else
-    {
-        printf("proc %d: %s\n", pid, buffer);
-    }
+//    else
+//    {
+//        printf("proc %d: %s\n", pid, buffer);
+//    }
 
     return 1;
 }
