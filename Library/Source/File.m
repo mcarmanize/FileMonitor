@@ -223,38 +223,38 @@ bail:
     {
         //create
         case ES_EVENT_TYPE_NOTIFY_CREATE:
-            [description appendString:@"\"ES_EVENT_TYPE_NOTIFY_CREATE\","];
+            [description appendString:@"\"create\","];
             break;
             
         //open
         case ES_EVENT_TYPE_NOTIFY_OPEN:
-            [description appendString:@"\"ES_EVENT_TYPE_NOTIFY_OPEN\","];
+            [description appendString:@"\"open\","];
             break;
             
         //write
         case ES_EVENT_TYPE_NOTIFY_WRITE:
-            [description appendString:@"\"ES_EVENT_TYPE_NOTIFY_WRITE\","];
+            [description appendString:@"\"write\","];
             break;
             
         //close
         case ES_EVENT_TYPE_NOTIFY_CLOSE:
-            [description appendString:@"\"ES_EVENT_TYPE_NOTIFY_CLOSE\","];
+            [description appendString:@"\"close\","];
             [description appendFormat:@"\"modified\":\"%hhd\",", self.modified];
             break;
             
         //rename
         case ES_EVENT_TYPE_NOTIFY_RENAME:
-            [description appendString:@"\"ES_EVENT_TYPE_NOTIFY_RENAME\","];
+            [description appendString:@"\"rename\","];
             break;
             
         //link
         case ES_EVENT_TYPE_NOTIFY_LINK:
-            [description appendString:@"\"ES_EVENT_TYPE_NOTIFY_LINK\","];
+            [description appendString:@"\"link\","];
             break;
             
         //unlink
         case ES_EVENT_TYPE_NOTIFY_UNLINK:
-            [description appendString:@"\"ES_EVENT_TYPE_NOTIFY_UNLINK\","];
+            [description appendString:@"\"unlink\","];
             break;
             
         default:
